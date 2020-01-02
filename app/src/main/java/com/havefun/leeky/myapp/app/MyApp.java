@@ -6,12 +6,16 @@ import android.content.Context;
 import android.util.Log;
 
 import com.havefun.leeky.myapp.BuildConfig;
+import com.xiaomi.channel.commonutils.logger.LoggerInterface;
+import com.xiaomi.mipush.sdk.Logger;
+import com.xiaomi.mipush.sdk.MiPushClient;
 
 import cn.jpush.android.api.JPushInterface;
 
 public class MyApp extends Application {
 
     private static final String TAG = "MyApplication";
+    private static final String MIPUSHTAG = "MiPush";
 
     @Override
     public void onCreate() {
@@ -21,6 +25,26 @@ public class MyApp extends Application {
         }
         JPushInterface.setDebugMode(BuildConfig.DEBUG); 	// 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);     		// 初始化 JPush
+
+        MiPushClient.registerPush(this, "2882303761518296822", "5551829696822");    // 初始化小米推送，AppID和AppKey
+        LoggerInterface newLogger = new LoggerInterface() {
+
+            @Override
+            public void setTag(String tag) {
+                // ignore
+            }
+
+            @Override
+            public void log(String content, Throwable t) {
+                Log.d(MIPUSHTAG, content, t);
+            }
+
+            @Override
+            public void log(String content) {
+                Log.d(MIPUSHTAG, content);
+            }
+        };
+        Logger.setLogger(this, newLogger);
     }
 
 

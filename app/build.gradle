@@ -20,14 +20,16 @@ android {
         manifestPlaceholders = [
                 JPUSH_PKGNAME : "com.havefun.leeky.myapp",
                 JPUSH_APPKEY : "a29c6ed67c06064a2a5dd56f", //JPush 上注册的包名对应的 Appkey.
-                JPUSH_CHANNEL : "developer-default" //暂时填写默认值即可.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                XIAOMI_APPKEY : "5551829696822", // 小米平台注册的appkey
+                XIAOMI_APPID : "2882303761518296822" // 小米平台注册的appid
         ]
 
         signingConfigs {
             config {
                 keyAlias 'bcs'
                 keyPassword 'bd64398920'
-                storeFile file('/Users/leeky/Documents/WorkFile/BONC/tol.key')
+                storeFile file('F:/WorkFile/tol.key')
                 storePassword 'bd64398920'
             }
         }
@@ -60,4 +62,5 @@ dependencies {
     implementation 'cn.jiguang.sdk:jcore:2.2.4'
     // 华为推送
     implementation 'com.huawei.hms:push:3.0.3.301'
+    // 小米推送为jar包
 }
