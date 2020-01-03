@@ -62,5 +62,6 @@ dependencies {
     implementation 'cn.jiguang.sdk:jcore:2.2.4'
     // 华为推送
     implementation 'com.huawei.hms:push:3.0.3.301'
-    // 小米推送为jar包
+    // 小米推送
+    implementation 'cn.jiguang.sdk.plugin:xiaomi:3.5.4'    //版本号和对应的JPush版本号相同
 }

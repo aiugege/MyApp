@@ -9,6 +9,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.havefun.leeky.myapp.R;
 import com.xiaomi.mipush.sdk.ErrorCode;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.xiaomi.mipush.sdk.MiPushCommandMessage;
@@ -18,6 +19,8 @@ import com.xiaomi.mipush.sdk.PushMessageReceiver;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import cn.jpush.android.service.PluginXiaomiPlatformsReceiver;
 
 /**
  * 1、PushMessageReceiver 是个抽象类，该类继承了 BroadcastReceiver。<br/>
@@ -59,29 +62,43 @@ public class XMMessageReceiver extends PushMessageReceiver {
     private String mStartTime;
     private String mEndTime;
 
+    private static final String TAG = "XMPushLog";
+
+    final PluginXiaomiPlatformsReceiver receiver = new PluginXiaomiPlatformsReceiver();
+
     @Override
     public void onReceivePassThroughMessage(Context context, MiPushMessage message) {
 
+        Log.d(TAG, "onReceivePassThroughMessage is called. " + message.toString());
+        receiver.onReceivePassThroughMessage(context, message);
     }
 
     @Override
     public void onNotificationMessageClicked(Context context, MiPushMessage message) {
 
+        Log.d(TAG, "onNotificationMessageClicked is called. " + message.toString());
+        receiver.onNotificationMessageClicked(context, message);
     }
 
     @Override
     public void onNotificationMessageArrived(Context context, MiPushMessage message) {
 
+        Log.d(TAG, "onNotificationMessageArrived is called. " + message.toString());
+        receiver.onNotificationMessageArrived(context, message);
     }
 
     @Override
     public void onCommandResult(Context context, MiPushCommandMessage message) {
 
+        Log.d(TAG, "onCommandResult is called. " + message.toString());
+        receiver.onCommandResult(context, message);
     }
 
     @Override
     public void onReceiveRegisterResult(Context context, MiPushCommandMessage message) {
 
+        Log.d(TAG, "onReceiveRegisterResult is called. " + message.toString());
+        receiver.onReceiveRegisterResult(context, message);
     }
 
     @Override
