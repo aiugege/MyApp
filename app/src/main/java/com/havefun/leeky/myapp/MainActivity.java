@@ -16,6 +16,8 @@ import com.havefun.leeky.myapp.bean.Translation;
 import com.havefun.leeky.myapp.bean.Translation1;
 import com.havefun.leeky.myapp.request_interface.GetRequest_Interface;
 import com.havefun.leeky.myapp.request_interface.PostRequest_Interface;
+import com.havefun.leeky.myapp.util.DeviceUuidFactory;
+import com.havefun.leeky.myapp.util.Logger;
 import com.havefun.leeky.myapp.view.CustomCircleProgressBar;
 import com.huawei.agconnect.config.AGConnectServicesConfig;
 import com.huawei.hms.aaid.HmsInstanceId;
@@ -71,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        }, 5000);
 
         getToken();
+
+        // 获取设备唯一UUID
+        Logger.d("DeviceUuid", "获取UUID：" + DeviceUuidFactory.getInstance(this).getDeviceUuid());
     }
 
     @Override
