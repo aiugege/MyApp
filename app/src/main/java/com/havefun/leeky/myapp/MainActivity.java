@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.havefun.leeky.myapp.annotation.AspectAnalyze;
+import com.havefun.leeky.myapp.annotation.AspectDebugLog;
 import com.havefun.leeky.myapp.bean.MessageEvent;
 import com.havefun.leeky.myapp.bean.Translation;
 import com.havefun.leeky.myapp.bean.Translation1;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "HmsPushLog";
 
+    @AspectAnalyze(name = "MainActivity.onCreate")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,12 +172,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        EventBus.getDefault().cancelEventDelivery(event);
     }
 
+    @AspectDebugLog
+    @AspectAnalyze(name = "MainActivity.onClick")
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(this, EventMessageActivity.class);
         startActivity(intent);
     }
 
+    @AspectAnalyze(name = "MainActivity.onDestroy")
     @Override
     protected void onDestroy() {
         super.onDestroy();

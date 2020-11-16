@@ -6,9 +6,14 @@ import android.content.Context;
 import android.util.Log;
 
 import com.havefun.leeky.myapp.BuildConfig;
+import com.havefun.leeky.myapp.annotation.AspectAnalyze;
+import com.havefun.leeky.myapp.annotation.AspectTrace;
 import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.reflect.MethodSignature;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -45,6 +50,18 @@ public class MyApp extends Application {
             }
         };
         Logger.setLogger(this, newLogger);
+
+        AspectTrace.setAspectTraceListener(new AspectTrace.AspectTraceListener() {
+            @Override
+            public void logger(String tag, String message) {
+                Log.e(tag, message);
+            }
+
+            @Override
+            public void onAspectAnalyze(ProceedingJoinPoint joinPoint, AspectAnalyze aspectAnalyze, MethodSignature methodSignature, long duration) {
+                Log.e("onAspectAnalyze", aspectAnalyze.name());
+            }
+        });
     }
 
 
