@@ -8,6 +8,9 @@ import android.util.Log;
 import com.havefun.leeky.myapp.BuildConfig;
 import com.havefun.leeky.myapp.annotation.AspectAnalyze;
 import com.havefun.leeky.myapp.annotation.AspectTrace;
+import com.leeky.asplibrary.TraceAspect;
+import com.leeky.asplibrary.TrackCallBack;
+import com.leeky.asplibrary.TrackPoint;
 import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
@@ -20,6 +23,7 @@ import cn.jpush.android.api.JPushInterface;
 public class MyApp extends Application {
 
     private static final String TAG = "MyApplication";
+    private static final String TAG_1 = TraceAspect.class.getSimpleName();
     private static final String MIPUSHTAG = "MiPush";
 
     @Override
@@ -51,15 +55,33 @@ public class MyApp extends Application {
         };
         Logger.setLogger(this, newLogger);
 
-        AspectTrace.setAspectTraceListener(new AspectTrace.AspectTraceListener() {
+//        AspectTrace.setAspectTraceListener(new AspectTrace.AspectTraceListener() {
+//            @Override
+//            public void logger(String tag, String message) {
+//                Log.e(tag, message);
+//            }
+//
+//            @Override
+//            public void onAspectAnalyze(ProceedingJoinPoint joinPoint, AspectAnalyze aspectAnalyze, MethodSignature methodSignature, long duration) {
+//                Log.e("onAspectAnalyze", aspectAnalyze.name());
+//            }
+//        });
+
+        TrackPoint.init(new TrackCallBack() {
             @Override
-            public void logger(String tag, String message) {
-                Log.e(tag, message);
+            public void onClick(String pageName, String viewIdName) {
+                Log.e(TAG_1, "onClick:" + pageName + "-" + viewIdName);
+
             }
 
             @Override
-            public void onAspectAnalyze(ProceedingJoinPoint joinPoint, AspectAnalyze aspectAnalyze, MethodSignature methodSignature, long duration) {
-                Log.e("onAspectAnalyze", aspectAnalyze.name());
+            public void onPageOpen(String pageName) {
+                Log.e(TAG_1, "onPageOpen:" + pageName);
+            }
+
+            @Override
+            public void onPageClose(String pageName) {
+                Log.e(TAG_1, "onPageClose:" + pageName);
             }
         });
     }
